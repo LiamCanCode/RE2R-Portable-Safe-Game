@@ -1,12 +1,14 @@
 import { React, useState } from "react";
+import GameScreen from "./GameScreen";
+import Menu from "./Menu";
 
 const Game = () => {
 
     const [difficulty, setDifficulty] = useState(8)
     const updateDifficulty = (newDifficulty) => { setDifficulty(newDifficulty) };
 
-    const [gameInProgress, setGameInProgress] = useState(false);
-    const updateGameInProgress = (newState) => { setGameInProgress(newState) }
+    const [gameState, setGameState] = useState("Title Menu");
+    const updateGameState = (newState) => { setGameState(newState) }
 
     const [safecode, setSafecode] = useState([]);
     const updateSafecode = (newSafeCode) => { setSafecode(newSafeCode) };
@@ -34,34 +36,24 @@ const Game = () => {
         return updateSafecode(newSafecode);
     }
 
-    const incrementDifficulty = () => {
-        const newDifficulty = difficulty + 1;
-        updateDifficulty(newDifficulty)
-    }
-
-    const decrementDifficulty = () => {
-        if(difficulty===1){
-            return alert("how's that gonna work buddy?")
-        }
-        const newDifficulty = difficulty - 1;
-        updateDifficulty(newDifficulty)
-    }
-
     return (
+
+
         <>
 
-            <div>
+            <GameScreen/>
+            <Menu difficulty={difficulty} updateDifficulty={updateDifficulty}/>
+
+
+            <p>
                 <button onClick={generateSafeCode}>NEW SAFECODE</button>
                 safecode = {safecode}
-            </div>
+            </p>
 
-            <div>
-                gameInProgress = {gameInProgress}
-            </div>
+            <p>
+                gameState = {gameState}
+            </p>
 
-            <div>
-                <button onClick={decrementDifficulty}>-</button>difficulty = {difficulty}<button onClick={incrementDifficulty}>+</button>
-            </div>
 
         </>
 
